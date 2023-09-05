@@ -19,12 +19,31 @@ function App() {
         onChange={(e) => {
           setUserInput(e.target.value);
         }}
+        value={userInput}
       ></input>
-      <button>Add Task</button>
+      <button
+        onClick={() => {
+          const copy = _.cloneDeep(tasks);
+          copy.push({ text: userInput, isComplete: false, color: "black" });
+          setTasks(copy);
+          setUserInput("");
+        }}
+      >
+        Add Task
+      </button>
 
       {tasks.map((e, i) => {
         return (
           <div key={i} style={{ color: e.color }}>
+            <button
+              onClick={() => {
+                const copyT = _.cloneDeep(tasks);
+                const newTask = copyT.slice(0, i).concat(copyT.slice(i + 1));
+                setTasks(newTask);
+              }}
+            >
+              -
+            </button>
             {e.text}
             <input
               onChange={(e) => {
