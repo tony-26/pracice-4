@@ -54,6 +54,21 @@ function App() {
               type="checkbox"
               checked={e.isComplete}
             />
+            <select
+              onChange={(e) => {
+                const copy = _.cloneDeep(tasks);
+                copy[i].color = e.target.value;
+                setTasks(copy);
+              }}
+            >
+              <option value={"-"}>-</option>
+              <option value={"black"}>black</option>
+              <option value={"green"}>green</option>
+              <option value={"blue"}>blue</option>
+              <option value={"pink"}>pink</option>
+              <option value={"red"}>red</option>
+              <option value={"yellow"}>yellow</option>
+            </select>
           </div>
         );
       })}
