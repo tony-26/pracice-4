@@ -1,6 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
+import _ from "lodash";
 
 function App() {
   const [userInput, setUserInput] = useState("");
@@ -21,11 +22,19 @@ function App() {
       ></input>
       <button>Add Task</button>
 
-      {tasks.map((e) => {
+      {tasks.map((e, i) => {
         return (
-          <div style={{ color: e.color }}>
+          <div key={i} style={{ color: e.color }}>
             {e.text}
-            <input type="checkbox" checked={e.isComplete} />
+            <input
+              onChange={(e) => {
+                const copyTasks = _.cloneDeep(tasks);
+                copyTasks[i].isComplete = !copyTasks[i].isComplete;
+                setTasks(copyTasks);
+              }}
+              type="checkbox"
+              checked={e.isComplete}
+            />
           </div>
         );
       })}
