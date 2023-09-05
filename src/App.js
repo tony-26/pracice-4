@@ -2,9 +2,10 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 import _ from "lodash";
+import AddTask from "./Components/AddTask";
 
 function App() {
-  const [userInput, setUserInput] = useState("");
+ 
   const initialTasks = [
     { text: "do work", isComplete: false, color: "red" },
     { text: "play fifa", isComplete: true, color: "pink" },
@@ -27,22 +28,7 @@ function App() {
   return (
     <div className="App">
       <h1>To Do List</h1>
-      <input
-        onChange={(e) => {
-          setUserInput(e.target.value);
-        }}
-        value={userInput}
-      ></input>
-      <button
-        onClick={() => {
-          const copy = _.cloneDeep(tasks);
-          copy.push({ text: userInput, isComplete: false, color: "black" });
-          setTasks(copy);
-          setUserInput("");
-        }}
-      >
-        Add Task
-      </button>
+      <AddTask setTasks={setTasks} tasks={tasks} />
 
       {filteredTasks.map((e, i) => {
         return (
