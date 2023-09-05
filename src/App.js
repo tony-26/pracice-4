@@ -12,6 +12,18 @@ function App() {
     { text: "play sports", isComplete: true, color: "green" },
   ];
   const [tasks, setTasks] = useState(initialTasks);
+  const [filterStatus, setFilterStatus] = useState("all");
+  const filteredTasks = tasks.filter((e) => {
+    if (filterStatus === "all") {
+      return true;
+    }
+    if (filterStatus === "incomplete") {
+      return e.isComplete === false;
+    }
+    if (filterStatus === "completed") {
+      return e.isComplete === true;
+    }
+  });
   return (
     <div className="App">
       <h1>To Do List</h1>
@@ -32,7 +44,7 @@ function App() {
         Add Task
       </button>
 
-      {tasks.map((e, i) => {
+      {filteredTasks.map((e, i) => {
         return (
           <div key={i} style={{ color: e.color }}>
             <button
@@ -72,6 +84,29 @@ function App() {
           </div>
         );
       })}
+      <button
+        onClick={() => {
+          setFilterStatus("all");
+        }}
+      >
+        all
+      </button>
+
+      <button
+        onClick={() => {
+          setFilterStatus("incomplete");
+        }}
+      >
+        incomplete
+      </button>
+
+      <button
+        onClick={() => {
+          setFilterStatus("completed");
+        }}
+      >
+        completed
+      </button>
     </div>
   );
 }
